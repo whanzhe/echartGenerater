@@ -1,0 +1,75 @@
+<html>
+<meta charset="UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<head>
+    <script src="lodash.js"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+    <script src="echarts.min.js"></script>
+</head>
+<body>
+<div id="container" style="height:500px;width:650px"></div>
+</body>
+<script>
+    var charts = null;
+    $(function () {
+        charts = echarts.init(document.getElementById('container'));
+        getCharts(getDefaultData());
+    });
+
+    function getCharts(params) {
+        changeOption(params)
+        return charts.getDataURL();
+    }
+
+    function getDefaultData() {
+        var testData = {};
+        testData.title  = "test";
+        return testData;
+    }
+
+    function changeOption(params) {
+        option.title.text = params.title;
+        charts.setOption(option);
+    }
+
+    var option = {
+        title: {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: '直接访问'},
+                    {value: 310, name: '邮件营销'},
+                    {value: 234, name: '联盟广告'},
+                    {value: 135, name: '视频广告'},
+                    {value: 1548, name: '搜索引擎'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+</script>
+</html>
